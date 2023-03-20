@@ -1,0 +1,46 @@
+.loginPanel {
+    height: 100%;
+    width: 45vw;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.loginTitle {
+    margin-top: 10%;
+    font-family: 'Fredoka';
+    font-size: 24pt;
+    margin-bottom: 40px;
+}
+input {
+    color: #000;
+    font-family: 'Inter';
+    font-weight: 700;
+    background-color: transparent;
+    border: none;
+    min-width: 20px;
+    width: 100%;
+    height: 64px;
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    padding: 15px;
+    box-shadow: 3.6px 7.2px 21.6px rgba(149, 157, 165, 0.4);
+    border-radius: 10px;
+    margin: 15px 0;
+    font-size: 11pt;
+}
+input::placeholder {
+    color: #000;
+}
+button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+img {
+    margin-right: 10px;
+}
