@@ -23,5 +23,5 @@ export default defineNuxtConfig({
             ],
         },
     },
-    modules: ['@pinia/nuxt', '@nuxt/devtools', '@vueuse/nuxt'],
+    modules: ['@pinia/nuxt', '@nuxt/devtools', '@vueuse/nuxt', '@huntersofbook/naive-ui-nuxt'],
 })
