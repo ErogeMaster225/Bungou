@@ -11,7 +11,7 @@ definePageMeta({
 <template>
     <div class="loginPanel">
         <div class="loginTitle">
-            Welcome Back!
+            Hi! Welcome to Bungou!
         </div>
         <form>
             <div class="inputBox">
