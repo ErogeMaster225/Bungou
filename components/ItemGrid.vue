@@ -3,47 +3,46 @@ const bookStore = useBookStore()
 </script>
 
 <template>
-    <TransitionGroup
-        tag="div"
-        class="store"
-        name="card-slide"
-        :style="{ '--total': bookStore.bookList.length }"
-    >
-        <div
-            v-for="(book, index) in bookStore.bookList"
-            :key="index"
-            class="item"
-            :style="{ '--index': index }"
+    <div class="store" :style="{ '--total': bookStore.bookList.length }">
+        <TransitionGroup
+            name="card-slide"
         >
-            <div class="thumbnail">
-                <img :src="book.image" alt="">
-                <div class="action">
-                    <i class="fa-solid fa-2x fa-square-heart" />
-                    <i class="fa-solid fa-2x fa-cart-shopping" />
+            <div
+                v-for="(book, index) in bookStore.bookList"
+                :key="index"
+                class="item"
+                :style="{ '--index': index }"
+            >
+                <div class="thumbnail">
+                    <img :src="book.image" alt="">
+                    <div class="action">
+                        <i class="fa-solid fa-2x fa-square-heart" />
+                        <i class="fa-solid fa-2x fa-cart-shopping" />
+                    </div>
+                </div>
+                <div class="title">
+                    {{ book.title }}
+                </div>
+                <div class="itemDetails right">
+                    <div class="author">
+                        {{ book.author }}
+                    </div>
+                    <div class="genre">
+                        {{ book.categories }}
+                    </div>
+                    <div class="price">
+                        {{ `$${book.price}` }}
+                    </div>
+                    <div class="rating">
+                        {{ book.rating }}
+                    </div>
+                    <div class="year">
+                        {{ book.year }}
+                    </div>
                 </div>
             </div>
-            <div class="title">
-                {{ book.title }}
-            </div>
-            <div class="itemDetails right">
-                <div class="author">
-                    {{ book.author }}
-                </div>
-                <div class="genre">
-                    {{ book.categories }}
-                </div>
-                <div class="price">
-                    {{ `$${book.price}` }}
-                </div>
-                <div class="rating">
-                    {{ book.rating }}
-                </div>
-                <div class="year">
-                    {{ book.year }}
-                </div>
-            </div>
-        </div>
-    </TransitionGroup>
+        </TransitionGroup>
+    </div>
 </template>
 
 <style scoped>

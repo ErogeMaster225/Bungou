@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="home">
+    <div class="store_page">
         <side-bar />
         <item-grid />
     </div>
@@ -18,7 +18,7 @@
     font-size: 64px;
     font-weight: 700;
 }
-.home {
+.store_page {
     width: 100%;
     height: 100%;
     display: flex;
