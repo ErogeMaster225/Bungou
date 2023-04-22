@@ -4,6 +4,7 @@
         "no-undef": "off",
         "indent": ["error", 4, { "SwitchCase": 1 }],
         "vue/html-indent": ["error", 4, {}],
-        "@typescript-eslint/indent": "off"
+        "@typescript-eslint/indent": "off",
+        "prefer-template": "off"
     }
 }
