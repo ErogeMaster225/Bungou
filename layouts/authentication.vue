@@ -1,7 +1,7 @@
 <template>
     <div id="authScreen">
         <div id="authBackground" />
-        <NuxtPage />
+        <slot />
     </div>
 </template>
 
