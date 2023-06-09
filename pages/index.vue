@@ -1,5 +1,11 @@
 <script setup>
-
+definePageMeta({
+    layout: 'main',
+    pageTransition: {
+        name: 'fade',
+        mode: 'out-in',
+    },
+})
 </script>
 
 <template>
