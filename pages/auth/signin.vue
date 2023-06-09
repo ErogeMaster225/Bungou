@@ -1,11 +1,26 @@
 <script setup>
-definePageMeta({
-    layout: 'authentication',
-    pageTransition: {
-        name: 'fade',
-        mode: 'out-in',
-    },
+import ky from 'ky'
+const userStore = useUserStore()
+const api = ky.create({
+    prefixUrl: 'https://bungou-backend-production.up.railway.app/api/v1/user',
 })
+const login = () => {
+    const email = document.getElementById('emailField').value
+    const password = document.getElementById('passwordField').value
+    loginRequest(email, password)
+}
+async function loginRequest(email, password) {
+    const response = await api.post('login', { json: { email, password } }).json()
+    if (!response.err) {
+        userStore.token = response.access_token
+        userInfoRequest(userStore.token)
+    }
+}
+async function userInfoRequest(token) {
+    const response = await api.get('info', { headers: { Authorization: token } }).json()
+    userStore.userDetails = response
+    navigateTo('/')
+}
 </script>
 
 <template>
@@ -36,7 +51,7 @@ definePageMeta({
                 Forgot password?
             </div>
             <div class="inputBox">
-                <button id="signInButton" type="submit" name="submit">
+                <button id="signInButton" type="submit" name="submit" @click.prevent="login()">
                     Sign in with Email
                 </button>
             </div>
