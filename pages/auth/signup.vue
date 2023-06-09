@@ -1,11 +1,28 @@
 <script setup>
-definePageMeta({
-    layout: 'authentication',
-    pageTransition: {
-        name: 'fade',
-        mode: 'out-in',
-    },
+import ky from 'ky'
+const userStore = useUserStore()
+const api = ky.create({
+    prefixUrl: 'https://bungou-backend-production.up.railway.app/api/v1/user',
 })
+const register = () => {
+    const firstName = document.getElementById('firstNameField').value
+    const lastName = document.getElementById('lastNameField').value
+    const email = document.getElementById('emailField').value
+    const password = document.getElementById('passwordField').value
+    registerRequest(firstName, lastName, email, password)
+}
+async function registerRequest(firstName, lastName, email, password) {
+    const response = await api.post('register', { json: { firstName, lastName, email, password } }).json()
+    if (!response.err) {
+        userStore.token = response.access_token
+        userInfoRequest(userStore.token)
+    }
+}
+async function userInfoRequest(token) {
+    const response = await api.get('info', { headers: { Authorization: token } }).json()
+    userStore.userDetails = response
+    navigateTo('/')
+}
 </script>
 
 <template>
@@ -14,6 +31,26 @@ definePageMeta({
             Hi! Welcome to Bungou!
         </div>
         <form>
+            <div class="name">
+                <div class="inputBox">
+                    <input
+                        id="firstNameField"
+                        type="text"
+                        name="firstName"
+                        required
+                        placeholder="First Name"
+                    >
+                </div>
+                <div class="inputBox">
+                    <input
+                        id="lastNameField"
+                        type="text"
+                        name="lastName"
+                        required
+                        placeholder="Last Name"
+                    >
+                </div>
+            </div>
             <div class="inputBox">
                 <input
                     id="emailField"
@@ -33,7 +70,7 @@ definePageMeta({
                 >
             </div>
             <div class="inputBox">
-                <button id="signInButton" type="submit" name="submit">
+                <button id="signInButton" type="submit" name="submit" @click.prevent="register()">
                     Sign up with Email
                 </button>
             </div>
@@ -112,7 +149,7 @@ h2 span {
     padding: 0 10px;
 }
 .signin {
-    margin-top: 50px;
+    margin-top: 30px;
     font-family: 'Inter';
     font-weight: 400;
     color: #000;
@@ -132,5 +169,10 @@ h2 span {
     float: right;
     margin-top: 0;
     color: #bbb;
+}
+.name {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
 }
 </style>

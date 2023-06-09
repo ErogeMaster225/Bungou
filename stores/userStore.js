@@ -4,7 +4,7 @@ export const useUserStore = defineStore('user', {
             token: '',
             userDetails: {
                 id: 0,
-                firstName: '',
+                firstName: 'Guest',
                 lastName: '',
                 email: '',
                 resetToken: null,
