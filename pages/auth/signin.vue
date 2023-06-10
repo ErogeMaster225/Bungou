@@ -47,9 +47,9 @@ async function userInfoRequest(token) {
                     placeholder="Password"
                 >
             </div>
-            <div class="forgotPass">
+            <NuxtLink to="/auth/reset" class="forgotPass">
                 Forgot password?
-            </div>
+            </NuxtLink>
             <div class="inputBox">
                 <button id="signInButton" type="submit" name="submit" @click.prevent="login()">
                     Sign in with Email
@@ -143,13 +143,14 @@ h2 span {
     text-decoration: none;
 }
 .forgotPass {
+    all: unset;
+    float: right;
     font-family: 'Inter';
     font-size: 11pt;
     font-weight: 400;
-    text-align: right;
     margin-top: 0;
     color: #bbb;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
     cursor: pointer;
 }
 </style>
