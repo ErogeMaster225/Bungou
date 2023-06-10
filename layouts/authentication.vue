@@ -18,6 +18,7 @@
     justify-content: center;
     background-color: #fff;
     overflow: hidden;
+    z-index: 1;
 }
 #authBackground {
     height: 100%;
