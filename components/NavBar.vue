@@ -1,6 +1,7 @@
 <script setup>
 import ky from 'ky'
 const bookStore = useBookStore()
+const userStore = useUserStore()
 const api = ky.create({
     prefixUrl: 'https://bungou-backend-production.up.railway.app/api/v1',
 })
@@ -15,14 +16,17 @@ async function bookSearchRequest(query) {
     bookStore.bookList = []
     let response
     if (query === 'All')
-        response = await api.get('book/get?limit=50').json()
+        response = await api.get('book?limit=50').json()
     else
-        response = await api.get('book/get?limit=50&search=' + query.split(' ').join('_')).json()
+        response = await api.get('book?limit=50&search=' + query.split(' ').join('_')).json()
     bookStore.bookList = response.rows
 }
 function doneTyping() {
     bookSearchRequest(document.getElementById('search_box').value)
 }
+onMounted(() => {
+    bookSearchRequest('All')
+})
 </script>
 
 <template>
@@ -56,32 +60,36 @@ function doneTyping() {
                     src="https://a.ppy.sh/8471225?1671713737.gif"
                     alt="Guest"
                 >
-                <span>Hi, ErogeMaster225!</span>
+                <span>Hi, {{ `${userStore.userDetails.firstName} ${userStore.userDetails.lastName}` }}!</span>
                 <i class="fa-solid fa-caret-down fa-2xl" />
             </div>
             <div class="dropdown-menu">
-                <NuxtLink to="/auth/signup" class="dropdown-button">
-                    <i class="fa-solid fa-user" />
-                    <div>Profile</div>
-                </NuxtLink>
-                <NuxtLink to="/auth/signup" class="dropdown-button">
-                    <i class="fa-solid fa-heart" />
-                    <div>Wishlist</div>
-                </NuxtLink>
-                <NuxtLink to="/auth/signup" class="dropdown-button">
-                    <i class="fa-solid fa-right-from-bracket" />
-                    <div>Sign Up</div>
-                </NuxtLink>
+                <template v-if="userStore.userDetails.lastName">
+                    <NuxtLink to="/user/profile" class="dropdown-button">
+                        <i class="fa-solid fa-user" />
+                        <div>Profile</div>
+                    </NuxtLink>
+                    <NuxtLink to="/user/wishlist" class="dropdown-button">
+                        <i class="fa-solid fa-heart" />
+                        <div>Wishlist</div>
+                    </NuxtLink>
+                    <NuxtLink to="/user/wishlist" class="dropdown-button">
+                        <i class="fa-solid fa-right-from-bracket" />
+                        <div>Sign Out</div>
+                    </NuxtLink>
+                </template>
+                <template v-else>
+                    <NuxtLink to="/auth/signin" class="dropdown-button">
+                        <i class="fa-solid fa-arrow-right-to-bracket" />
+                        <div>Sign In</div>
+                    </NuxtLink>
+                    <NuxtLink to="/auth/signup" class="dropdown-button">
+                        <i class="fa-solid fa-user-plus" />
+                        <div>Sign Up</div>
+                    </NuxtLink>
+                </template>
             </div>
         </div>
-        <!-- <div class="user">
-            <NuxtLink to="/auth/signin" class="link">
-                Sign in
-            </NuxtLink>
-            <NuxtLink to="/auth/signup" class="link">
-                Sign up
-            </NuxtLink>
-        </div> -->
     </div>
 </template>
 
@@ -182,13 +190,13 @@ function doneTyping() {
     right: 0;
     z-index: 1;
     opacity: 0;
-    transition: all 0.2s ease-in;
+    transition: all 0.1s ease-in;
     border-radius: 12px;
-    align-items: flex-end;
+    align-items: flex-start;
     background-color: #fff;
-    width: 50%;
+    min-width: 50%;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    transform: translateY(-15px);
+    transform: translateY(-5px);
 }
 .user-profile:hover .dropdown-menu {
     opacity: 1;
