@@ -1,14 +1,14 @@
 <script setup>
 const genre_list = ref([
-    'genre1',
-    'genre2',
-    'genre3',
-    'genre4',
-    'genre5',
-    'genre6',
-    'genre7',
+    'Romance',
+    'Fiction',
+    'Comedy',
+    'Psychology',
+    'Biography',
+    'Medical',
+    'Graphic Novel',
 ])
-const price_range = ref([0, 1000])
+/* const price_range = ref([0, 1000])
 watch(
     price_range,
     (newValue, oldValue) => {
@@ -18,21 +18,21 @@ watch(
     {
         deep: true,
     },
-)
+) */
 </script>
 
 <template>
     <div class="sidebar">
         <div class="filter">
-            <div class="filter-title">
-                <h2 id="title">
+            <!-- <div class="filter-title">
+                <h1 id="title">
                     Filter
-                </h2>
-            </div>
+                </h1>
+            </div> -->
             <div class="filter-content">
                 <div class="filter-item">
-                    <h3>Price</h3>
-                    <div class="filter-item-content">
+                    <!-- <h3>Price</h3> -->
+                    <!-- <div class="filter-item-content">
                         <div class="filter-item-content-item">
                             <n-slider
                                 v-model:value="price_range"
@@ -42,8 +42,8 @@ watch(
                                 :max="1000"
                             />
                         </div>
-                    </div>
-                    <h4>Genre</h4>
+                    </div> -->
+                    <h2>Genre</h2>
                     <div class="filter-item-content">
                         <!-- <div v-for="genre in genre_list" :key="genre" class="filter-item-content-item">
                             <input
@@ -101,6 +101,7 @@ watch(
     background-color: #fff;
     margin: 20px 30px;
     border-radius: 12px;
+    font-weight: 500;
 }
 .filter {
     height: 90%;
@@ -113,6 +114,9 @@ watch(
 .filter-title h2 {
     margin: 0;
     padding: 0;
+}
+#price-min, #price-max {
+    width: 45%;
 }
 .price-input {
     display: flex;
@@ -153,6 +157,11 @@ watch(
 }
 .checkbox-wrapper-30 label {
     padding-left: 10px;
+    color: #748899;
+    transition: color 0.2s linear;
+}
+.checkbox-wrapper-30:hover label {
+    color: #3db4f2;
 }
 .checkbox-wrapper-30 .checkbox {
     --bg: #fff;
