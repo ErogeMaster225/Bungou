@@ -22,6 +22,7 @@ async function bookSearchRequest(id) {
     bookStore.bookDetails.author = response.data.author
     bookStore.bookDetails.publisher = response.data.publisher
     bookStore.bookDetails.length = response.data.length
+    bookStore.bookDetails.isbn = response.data.isbn
     bookStore.bookDetails.categories = response.data.categories.split(',')
 }
 onBeforeMount(() => {
@@ -52,8 +53,30 @@ onBeforeMount(() => {
             </div>
             <div class="description">
                 <div>Description</div>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus perspiciatis nesciunt ratione numquam quae illo magnam! Molestias rem consequuntur hic iusto iste blanditiis debitis et, eligendi, eius minus unde fugit quisquam nesciunt ab aperiam, illum eum at id! Saepe voluptas rerum eaque cumque. Cum laboriosam molestiae, necessitatibus perferendis tempora vel inventore odit id quidem maiores aliquid deleniti commodi corrupti nostrum velit repellat magni sapiente quia sequi! Nulla eveniet eaque fugiat molestias maiores ipsam, impedit optio corporis repudiandae obcaecati. Cumque soluta sit quos consequuntur, magnam, neque perferendis unde inventore dolorem vel ab. Quod suscipit soluta quo dolorem quaerat quae expedita cum.
+                A gorgeously illustrated deep dive into the immune system that will forever change how you think about your body, from the creator of the popular science YouTube channel Kurzgesagt—In a Nutshell
+                <br>
+                You wake up and feel a tickle in your throat. Your head hurts. You're mildly annoyed as you get the kids ready for school and dress for work yourself. Meanwhile, an epic war is being fought, just below your skin. Millions are fighting and dying for you to be able to complain as you head out the door.
+                <br>
+                So what, exactly, is your immune system?
             </div>
+            <table class="meta">
+                <tr>
+                    <td>Genre:</td>
+                    <td>{{ bookStore.bookDetails.categories.join(',') }}</td>
+                </tr>
+                <tr>
+                    <td>ISBN:</td>
+                    <td>{{ bookStore.bookDetails.isbn }}</td>
+                </tr>
+                <tr>
+                    <td>Publisher:</td>
+                    <td>{{ bookStore.bookDetails.publisher }}</td>
+                </tr>
+                <tr>
+                    <td>Release year:</td>
+                    <td>{{ bookStore.bookDetails.releaseDate }}</td>
+                </tr>
+            </table>
             <div class="button">
                 <div class="buy">
                     <i class="fa-solid fa-cart-shopping" />
@@ -87,6 +110,9 @@ onBeforeMount(() => {
     font-family: 'Fredoka';
     margin: 0 20px;
     align-items: flex-start;
+}
+.bookDetails > div {
+    padding: 5px 0;
 }
 .bookDetails .title {
     font-size: 2rem;
@@ -128,7 +154,7 @@ onBeforeMount(() => {
     align-items: center;
 }
 .bookDetails .button > div {
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 1.5rem;
     font-weight: 500;
     display: flex;
@@ -156,5 +182,27 @@ onBeforeMount(() => {
 .bookDetails .button .wishlist i {
     padding-right: 10px;
     color: #fe8383;
+}
+.meta {
+    display: block;
+    margin-top: 20px;
+    font-size: 12pt;
+    font-weight: 400;
+    width: 60%;
+    color: #666;
+    text-align: left;
+}
+.meta tr {
+    height: 24pt;
+    vertical-align: top;
+}
+.meta tr td:first-child {
+    width: 150px;
+    font-weight: 700;
+}
+.meta tr td:last-child,
+td a,
+a:hover {
+    color: #666;
 }
 </style>
