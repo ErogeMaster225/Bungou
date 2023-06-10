@@ -12,31 +12,33 @@ const bookStore = useBookStore()
                 :key="index"
                 class="item"
                 :style="{ '--index': index }"
+                @click="$router.push(`/details/${book.BookId}`)"
             >
                 <div class="thumbnail">
                     <img :src="book.image" alt="">
-                    <div class="action">
-                        <i class="fa-solid fa-2x fa-square-heart" />
-                        <i class="fa-solid fa-2x fa-cart-shopping" />
-                    </div>
                 </div>
                 <div class="title">
                     {{ book.title }}
                 </div>
-                <div class="itemDetails right">
+                <div class="itemDetails" :class="[index % 5 === 4 ? 'left' : 'right']">
                     <div class="author">
+                        <i class="icon"><i class="fa-solid fa-user-pen" /></i>
                         {{ book.author }}
                     </div>
                     <div class="genre">
+                        <i class="icon"><i class="fa-solid fa-tags" /></i>
                         {{ book.categories }}
                     </div>
                     <div class="price">
-                        {{ `$${book.price}` }}
+                        <i class="icon"><i class="fa-solid fa-dollar-sign" /></i>
+                        {{ book.price }}
                     </div>
                     <div class="rating">
+                        <i class="icon"><i class="fa-solid fa-star" /></i>
                         {{ book.rating }}
                     </div>
                     <div class="year">
+                        <i class="icon"><i class="fa-solid fa-calendar-days" /></i>
                         {{ book.year }}
                     </div>
                 </div>
@@ -61,10 +63,16 @@ const bookStore = useBookStore()
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
 }
 .item:hover > .itemDetails {
-    animation: fadein 0.3s linear;
+    animation: fadein 0.2s linear;
     opacity: 1;
+}
+.icon {
+    display: inline-block;
+    text-align: center;
+    width: 20px;
 }
 .thumbnail {
     position: relative;
@@ -79,6 +87,8 @@ const bookStore = useBookStore()
     width: 100%;
 }
 .itemDetails {
+    font-family: 'Overpass';
+    font-size: 1rem;
     position: absolute;
     width: 100%;
     top: 5px;
@@ -139,6 +149,10 @@ const bookStore = useBookStore()
     font-size: 16px;
     font-weight: 600;
     color: rgb(116, 136, 153);
+    transition: color 0.2s ease;
+}
+.item:hover > .title {
+    color: hsl(185,99%,42%);
 }
 .action {
     z-index: 5;
