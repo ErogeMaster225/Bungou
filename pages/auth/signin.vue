@@ -2,7 +2,7 @@
 import ky from 'ky'
 const userStore = useUserStore()
 const api = ky.create({
-    prefixUrl: 'https://bungou-backend-production.up.railway.app/api/v1/user',
+    prefixUrl: 'https://rotten-milk-production.up.railway.app/api/v1/user',
 })
 const login = () => {
     const email = document.getElementById('emailField').value

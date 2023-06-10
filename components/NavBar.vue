@@ -3,7 +3,7 @@ import ky from 'ky'
 const bookStore = useBookStore()
 const userStore = useUserStore()
 const api = ky.create({
-    prefixUrl: 'https://bungou-backend-production.up.railway.app/api/v1',
+    prefixUrl: 'https://rotten-milk-production.up.railway.app/api/v1',
 })
 let typingTimer
 const bookSearch = () => {

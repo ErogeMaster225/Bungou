@@ -10,7 +10,7 @@ definePageMeta({
 const route = useRoute()
 const bookStore = useBookStore()
 const api = ky.create({
-    prefixUrl: 'https://bungou-backend-production.up.railway.app/api/v1',
+    prefixUrl: 'https://rotten-milk-production.up.railway.app/api/v1',
 })
 async function bookSearchRequest(id) {
     const response = await api.get('book/' + id).json()
