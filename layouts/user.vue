@@ -27,14 +27,17 @@ const userStore = useUserStore()
             </div>
         </div>
         <div class="profile_tabs">
-            <div class="tab" @click="$router.push('/user/wishlist')">
-                wishlist
+            <div class="tab" @click="$router.push('/user/upload')">
+                Upload
+            </div>
+            <div class="tab" @click="$router.push('/user/orders')">
+                Orders
             </div>
             <div class="tab" @click="$router.push('/user/library')">
-                library
+                Library
             </div>
             <div class="tab" @click="$router.push('/user/profile')">
-                about
+                About
             </div>
         </div>
         <slot />
