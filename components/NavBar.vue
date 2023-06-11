@@ -24,6 +24,11 @@ async function bookSearchRequest(query) {
 function doneTyping() {
     bookSearchRequest(document.getElementById('search_box').value)
 }
+function signout() {
+    userStore.$reset()
+    bookStore.$reset()
+    navigateTo('/')
+}
 onMounted(() => {
     bookSearchRequest('All')
 })
@@ -73,10 +78,10 @@ onMounted(() => {
                         <i class="fa-solid fa-heart" />
                         <div>Wishlist</div>
                     </NuxtLink>
-                    <NuxtLink to="/user/wishlist" class="dropdown-button">
+                    <div class="dropdown-button" @click="signout">
                         <i class="fa-solid fa-right-from-bracket" />
                         <div>Sign Out</div>
-                    </NuxtLink>
+                    </div>
                 </template>
                 <template v-else>
                     <NuxtLink to="/auth/signin" class="dropdown-button">
