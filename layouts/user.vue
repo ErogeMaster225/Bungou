@@ -30,9 +30,6 @@ const userStore = useUserStore()
             <div class="tab" @click="$router.push('/user/upload')">
                 Upload
             </div>
-            <div class="tab" @click="$router.push('/user/orders')">
-                Orders
-            </div>
             <div class="tab" @click="$router.push('/user/library')">
                 Library
             </div>
