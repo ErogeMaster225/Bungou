@@ -13,7 +13,7 @@ const api = ky.create({
 })
 async function bookSearchRequest() {
     bookStore.bookList = []
-    response = await api.get('book?limit=50').json()
+    let response = await api.get('book?limit=50').json()
     bookStore.bookList = response.rows
 }
 onMounted(() => {

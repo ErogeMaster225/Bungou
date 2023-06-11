@@ -8,6 +8,7 @@ definePageMeta({
     },
 })
 const route = useRoute()
+const userStore = useUserStore()
 const bookStore = useBookStore()
 const api = ky.create({
     prefixUrl: 'https://rotten-milk-production.up.railway.app/api/v1',
@@ -24,6 +25,19 @@ async function bookSearchRequest(id) {
     bookStore.bookDetails.length = response.data.length
     bookStore.bookDetails.isbn = response.data.isbn
     bookStore.bookDetails.categories = response.data.categories.split(',')
+}
+async function buy() {
+    let price = bookStore.bookDetails.price * 23000
+    let bookId = route.params.id
+    let userId = userStore.userDetails.id
+    const response = await api.post('order/create_payment_url', {json: {amount: price, userId, bookId } }).json()
+    /* navigateTo(response, {
+        open: {
+            target: '_blank'
+        },
+        external: true
+    }) */
+    window.open(response,'_blank');
 }
 onBeforeMount(() => {
     bookSearchRequest(route.params.id)
@@ -82,7 +96,7 @@ onBeforeMount(() => {
                 </tr>
             </table>
             <div class="button">
-                <div class="buy">
+                <div class="buy" @click="buy">
                     <i class="fa-solid fa-cart-shopping" />
                     Buy now
                 </div>
