@@ -10,6 +10,11 @@ export const useUserStore = defineStore('user', {
                 resetToken: null,
                 resetTokenExpiry: null,
                 role: '',
+                phone: null,
+                birth: null,
+                address: null,
+                avatar: null,
+                isBlock: false,
             },
             library: [],
         }
