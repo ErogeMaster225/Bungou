@@ -11,17 +11,19 @@ const bookStore = useBookStore()
 const api = ky.create({
     prefixUrl: 'https://rotten-milk-production.up.railway.app/api/v1',
 })
-async function bookSearchRequest(query) {
+async function bookSearchRequest() {
     bookStore.bookList = []
-    let response
-    if (query === 'All')
-        response = await api.get('book?limit=50').json()
-    else
-        response = await api.get('book?limit=50&search=' + query.split(' ').join('_')).json()
+    response = await api.get('book?limit=50').json()
     bookStore.bookList = response.rows
 }
 onMounted(() => {
-    bookSearchRequest('All')
+    document.getElementById('search_box').value = ''
+    const inputs = document.querySelectorAll('.checkbox > input')
+    inputs.forEach((input) => {
+        if (input.checked)
+            input.checked = false
+    })
+    bookSearchRequest()
 })
 </script>
 
