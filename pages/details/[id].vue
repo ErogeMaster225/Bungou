@@ -76,6 +76,10 @@ onBeforeMount(() => {
                     <td>Release year:</td>
                     <td>{{ bookStore.bookDetails.releaseDate }}</td>
                 </tr>
+                <tr>
+                    <td>Length:</td>
+                    <td>{{ bookStore.bookDetails.length }} pages</td>
+                </tr>
             </table>
             <div class="button">
                 <div class="buy">
@@ -88,6 +92,14 @@ onBeforeMount(() => {
             </div>
         </div>
     </div>
+    <!-- <div class="review">
+        <div class="reviewForm">
+            <textarea name="review" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div class="userReview">
+
+        </div>
+    </div> -->
 </template>
 
 <style scoped>
