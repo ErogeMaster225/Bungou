@@ -1,10 +1,27 @@
 <script setup>
+import ky from 'ky'
 definePageMeta({
     layout: 'main',
     pageTransition: {
         name: 'fade',
         mode: 'out-in',
     },
+})
+const bookStore = useBookStore()
+const api = ky.create({
+    prefixUrl: 'https://rotten-milk-production.up.railway.app/api/v1',
+})
+async function bookSearchRequest(query) {
+    bookStore.bookList = []
+    let response
+    if (query === 'All')
+        response = await api.get('book?limit=50').json()
+    else
+        response = await api.get('book?limit=50&search=' + query.split(' ').join('_')).json()
+    bookStore.bookList = response.rows
+}
+onMounted(() => {
+    bookSearchRequest('All')
 })
 </script>
 

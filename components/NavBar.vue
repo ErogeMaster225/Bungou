@@ -29,9 +29,6 @@ function signout() {
     bookStore.$reset()
     navigateTo('/')
 }
-onMounted(() => {
-    bookSearchRequest('All')
-})
 </script>
 
 <template>
