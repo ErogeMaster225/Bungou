@@ -6,23 +6,32 @@ const api = ky.create({
     prefixUrl: 'https://rotten-milk-production.up.railway.app/api/v1',
 })
 let typingTimer
+const search = () => {
+    const inputs = document.querySelectorAll('.checkbox > input')
+    const search = document.getElementById('search_box').value.split(' ').join('_')
+    let result = '&search=' + search
+    inputs.forEach((input) => {
+        if (input.checked)
+            result += ('&categories[]=' + input.id)
+    })
+    bookSearchRequest(result)
+}
 const bookSearch = () => {
     clearTimeout(typingTimer)
     if (document.getElementById('search_box').value)
         typingTimer = setTimeout(doneTyping, 750)
-    else bookSearchRequest('All')
+    else search()
 }
+
 async function bookSearchRequest(query) {
+    console.log('navbar search')
+    console.log(query)
     bookStore.bookList = []
-    let response
-    if (query === 'All')
-        response = await api.get('book?limit=50').json()
-    else
-        response = await api.get('book?limit=50&search=' + query.split(' ').join('_')).json()
+    const response = await api.get('book?limit=50' + query).json()
     bookStore.bookList = response.rows
 }
 function doneTyping() {
-    bookSearchRequest(document.getElementById('search_box').value)
+    search()
 }
 function signout() {
     userStore.$reset()

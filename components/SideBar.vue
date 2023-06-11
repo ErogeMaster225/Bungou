@@ -1,14 +1,39 @@
 <script setup>
+import ky from 'ky'
+const bookStore = useBookStore()
+const api = ky.create({
+    prefixUrl: 'https://rotten-milk-production.up.railway.app/api/v1',
+})
 const genre_list = ref([
     'Romance',
     'Fiction',
-    'Comedy',
+    'Fantasy',
     'Psychology',
     'Biography',
     'Medical',
-    'Graphic Novel',
+    'Novel',
+    'Storybooks',
 ])
-/* const price_range = ref([0, 1000])
+const search = (event) => {
+    if (event.target.tagName === 'LABEL')
+        return
+    const inputs = document.querySelectorAll('.checkbox > input')
+    const search = document.getElementById('search_box').value.split(' ').join('_')
+    let result = '&search=' + search
+    inputs.forEach((input) => {
+        if (input.checked)
+            result += ('&categories[]=' + input.id)
+    })
+    bookSearchRequest(result)
+}
+async function bookSearchRequest(query) {
+    console.log('sidebar search')
+    console.log(query)
+    bookStore.bookList = []
+    const response = await api.get('book?limit=50' + query).json()
+    bookStore.bookList = response.rows
+}
+const price_range = ref([0, 1000])
 watch(
     price_range,
     (newValue, oldValue) => {
@@ -18,21 +43,21 @@ watch(
     {
         deep: true,
     },
-) */
+)
 </script>
 
 <template>
     <div class="sidebar">
         <div class="filter">
-            <!-- <div class="filter-title">
+            <div class="filter-title">
                 <h1 id="title">
                     Filter
                 </h1>
-            </div> -->
+            </div>
             <div class="filter-content">
                 <div class="filter-item">
-                    <!-- <h3>Price</h3> -->
-                    <!-- <div class="filter-item-content">
+                    <h3>Price</h3>
+                    <div class="filter-item-content">
                         <div class="filter-item-content-item">
                             <n-slider
                                 v-model:value="price_range"
@@ -42,18 +67,9 @@ watch(
                                 :max="1000"
                             />
                         </div>
-                    </div> -->
+                    </div>
                     <h2>Genre</h2>
-                    <div class="filter-item-content">
-                        <!-- <div v-for="genre in genre_list" :key="genre" class="filter-item-content-item">
-                            <input
-                                :id="genre"
-                                type="checkbox"
-                                :name="genre"
-                                :value="genre"
-                            >
-                            <label :for="genre">{{ genre }}</label>
-                        </div> -->
+                    <div class="filter-item-content" @click="search">
                         <div
                             v-for="genre in genre_list"
                             :key="genre"
